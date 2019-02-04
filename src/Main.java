@@ -22,20 +22,12 @@ public class Main {
             service.submit(new Runner((i/100)%10,  (i/10)%10, i%10, service));
         }
 
-//        try {
-//            service.shutdown();
-//            service.awaitTermination(30, TimeUnit.SECONDS);
-//        } catch (InterruptedException e) {
-//            service.shutdownNow();
-//        }
-
-        if (service.awaitTermination(30, TimeUnit.SECONDS)) {
-            System.out.println("task completed");
-        } else {
-            System.out.println("Forcing shutdown...");
+        try {
+            service.shutdown();
+            service.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
             service.shutdownNow();
         }
-
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000000;  //divide by 1000000000 to get seconds.
